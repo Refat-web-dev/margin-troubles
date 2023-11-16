@@ -220,5 +220,66 @@ let arr = [
             "count": 145
         }
     }]
+let cont = document.querySelector(".container")
+let five = document.querySelector(".five")
+let all = document.querySelector(".all")
 
-    
+reload(arr.slice(0, 6), cont)
+
+five.onclick = () => {
+    reload(arr.slice(0, 6), cont)
+    transit(cont)
+}
+
+all.onclick = () => {
+    reload(arr, cont)
+    transit(cont)
+}
+
+reload(arr, cont)
+transit(cont)
+function transit(target) {
+    target.style.opacity = "0"
+
+    setTimeout(() => {
+        target.style.opacity = "1"
+    }, 300);
+
+}
+function reload(arr, place) {
+    place.innerHTML = ""
+
+    for (let product of arr) {
+
+        let item = document.createElement("div")
+        let img = document.createElement("img")
+        let title = document.createElement("h3")
+        let descr = document.createElement("p")
+        let categ = document.createElement("p")
+        let rating = document.createElement("div")
+        let rate = document.createElement("span")
+        let voted = document.createElement("span")
+        let add = document.createElement("button")
+
+        item.classList.add("item")
+        title.classList.add("title")
+        descr.classList.add("descr")
+        categ.classList.add("categ")
+        rating.classList.add("rating")
+        rate.classList.add("rate")
+        voted.classList.add("voted")
+        add.id = "add"
+
+        img.src = `${product.image}`
+        title.innerHTML = product.title.slice(0, 20)
+        descr.innerHTML = product.description.slice(0, 20)
+        categ.innerHTML = "Type: " + product.category.slice(0, 20)
+        rate.innerHTML = "Rate: " + product.rating.rate
+        voted.innerHTML = "Voted: " + product.rating.count
+        add.innerHTML = "ADD"
+
+        item.append(img, title, descr, categ, rating, add)
+        rating.append(rate, voted)
+        place.append(item)
+    }
+}
