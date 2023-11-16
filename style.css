@@ -1,0 +1,160 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=No75to+Sans+KR:wght@100;300;400;500;700;900&family=Roboto+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
+
+/*���������*/
+* {
+    padding: 0;
+    margin: 0;
+    border: 0;
+    font-family: "Montserrat";
+}
+
+*,
+*:before,
+*:after {
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+:focus,
+:active {
+    outline: none;
+}
+
+a:focus,
+a:active {
+    outline: none;
+}
+
+nav,
+footer,
+header,
+aside {
+    display: block;
+}
+
+html,
+body {
+    height: 100%;
+    width: 100%;
+    font-size: 100%;
+    line-height: 1;
+    font-size: 14px;
+    -ms-text-size-adjust: 100%;
+    -moz-text-size-adjust: 100%;
+    -webkit-text-size-adjust: 100%;
+}
+
+input,
+button,
+textarea {
+    font-family: inherit;
+}
+
+input::-ms-clear {
+    display: none;
+}
+
+button {
+    cursor: pointer;
+}
+
+button::-moz-focus-inner {
+    padding: 0;
+    border: 0;
+}
+
+a,
+a:visited {
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: none;
+}
+
+ul li {
+    list-style: none;
+}
+
+img {
+    vertical-align: top;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-size: inherit;
+    font-weight: inherit;
+}
+
+/*--------------------*/
+/* body {
+    background: rgb(53, 53, 86);
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 40px;
+}
+
+.added {
+    font-size: 32px;
+    color: rgb(191, 255, 167);
+    font-weight: 600;
+    width: fit-content;
+}
+
+.container {
+    width: 100%;
+}
+
+.item {
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.521);
+    font-size: 16px;
+    width: fit-content;
+    padding: 10px;
+    gap: 20px;
+    color: aliceblue;
+    background-color: #3232326f;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.item img {
+    width: 210px;
+    border-radius: 10px;
+}
+
+#add {
+    all: unset;
+    cursor: pointer;
+    background-color: royalblue;
+    width: 100%;
+    text-align: center;
+    border-radius: 5px;
+    padding: 10px 0;
+    transition: .3s ease;
+}
+
+#add:hover {
+    
+} */
+
+body {
+    background: rgb(53, 53, 86);
+}
+
+.added {
+    margin: 40px auto;
+    font-size: 32px;
+    color: rgb(191, 255, 167);
+    font-weight: 600;
+    width: fit-content;
+}
