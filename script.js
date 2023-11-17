@@ -220,37 +220,83 @@ let arr = [
             "count": 145
         }
     }]
+
+let body = document.body
+
 let cont = document.querySelector(".container")
+let aside = document.querySelector(".aside")
+let closeBtn = document.querySelector(".close")
+let openBtn = document.querySelector(".open")
+
+closeBtn.onclick = () => {
+    aside.style.right = "-400px"
+}
+
+openBtn.onclick = () => {
+    aside.style.right = "0px"
+}
+
 let five = document.querySelector(".five")
 let all = document.querySelector(".all")
+
+let blanket = document.querySelector(".blanket")
+let to_top = document.querySelector(".to_top")
+
+let count = document.querySelector(".count")
+
+let cart = []
 
 reload(arr.slice(0, 6), cont)
 
 five.onclick = () => {
-    reload(arr.slice(0, 6), cont)
-    transit(cont)
+    cont.style.opacity = "0"
+
+    setTimeout(() => {
+        cont.style.opacity = "1"
+        reload(arr.slice(0, 6), cont)
+    }, 500);
 }
 
 all.onclick = () => {
-    reload(arr, cont)
-    transit(cont)
-}
-
-reload(arr, cont)
-transit(cont)
-function transit(target) {
-    target.style.opacity = "0"
+    cont.style.opacity = "0"
 
     setTimeout(() => {
-        target.style.opacity = "1"
-    }, 300);
-
+        cont.style.opacity = "1"
+        reload(arr, cont)
+    }, 500);
 }
+
+blanket.onclick = () => {
+    window.scrollTo({
+        top: body.scrollHeight
+    })
+    blanket.style.opacity = "0"
+}
+to_top.onclick = () => {
+    window.scrollTo({
+        top: 0
+    })
+}
+
+window.onscroll = () => {
+    if (window.scrollY >= 1007) {
+        blanket.style.opacity = "0"
+        blanket.style.bottom = "-10%"
+        to_top.style.bottom = "40px"
+        to_top.style.opacity = "1"
+    } else {
+        blanket.style.opacity = "1"
+        blanket.style.bottom = "0%"
+        to_top.style.bottom = "-82px"
+        to_top.style.opacity = "0"
+    }
+}
+
 function reload(arr, place) {
     place.innerHTML = ""
-
+    count.innerHTML = cart.length
     for (let product of arr) {
-
+        product.price = Math.floor(Math.random() * 10000)
         let item = document.createElement("div")
         let img = document.createElement("img")
         let title = document.createElement("h3")
@@ -259,6 +305,7 @@ function reload(arr, place) {
         let rating = document.createElement("div")
         let rate = document.createElement("span")
         let voted = document.createElement("span")
+        let price = document.createElement("span")
         let add = document.createElement("button")
 
         item.classList.add("item")
@@ -268,7 +315,10 @@ function reload(arr, place) {
         rating.classList.add("rating")
         rate.classList.add("rate")
         voted.classList.add("voted")
+        price.classList.add("price")
         add.id = "add"
+
+
 
         img.src = `${product.image}`
         title.innerHTML = product.title.slice(0, 20)
@@ -276,10 +326,38 @@ function reload(arr, place) {
         categ.innerHTML = "Type: " + product.category.slice(0, 20)
         rate.innerHTML = "Rate: " + product.rating.rate
         voted.innerHTML = "Voted: " + product.rating.count
-        add.innerHTML = "ADD"
+        price.innerHTML = "Price: " + product.price + "$"
 
-        item.append(img, title, descr, categ, rating, add)
+        if (cart.includes(product.id)) {
+            add.innerHTML = "ADDED"
+            add.classList.add("add_active")
+        } else {
+            add.innerHTML = "ADD"
+            add.classList.remove("add_active")
+        }
+
+        item.append(img, title, descr, categ, rating, price, add)
         rating.append(rate, voted)
         place.append(item)
+
+        add.onclick = () => {
+            if (cart.includes(product.id)) {
+                cart = cart.filter(id => id !== product.id)
+                add.innerHTML = "ADD"
+                add.classList.remove("add_active")
+            } else {
+                cart.push(product.id)
+                add.innerHTML = "ADDED"
+                add.classList.add("add_active")
+            }
+            count.innerHTML = cart.length
+            console.log(cart);
+        }
+    }
+
+    if (arr.length === 6) {
+        blanket.style.opacity = '0'
+    } else {
+        blanket.style.opacity = '1'
     }
 }
