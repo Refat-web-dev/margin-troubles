@@ -225,26 +225,47 @@ let body = document.body
 
 let cont = document.querySelector(".container")
 let aside = document.querySelector(".aside")
-let closeBtn = document.querySelector(".close")
+let aside_cont = document.querySelector(".aside_cont")
 let openBtn = document.querySelector(".open")
+let closeBtns = document.querySelectorAll(".x")
+let blanket = document.querySelector(".blanket")
 
-closeBtn.onclick = () => {
-    aside.style.right = "-400px"
-}
+closeBtns.forEach(btn => {
+    btn.onclick = () => {
+        blanket.style.opacity = "0"
+        setTimeout(() => {
+            blanket.style.display = "none"
+        }, 500);
+        aside.style.right = "-400px"
+    }
+})
 
 openBtn.onclick = () => {
+    blanket.style.display = "block"
+    setTimeout(() => {
+        blanket.style.opacity = "1"
+    }, 0);
     aside.style.right = "0px"
 }
 
 let five = document.querySelector(".five")
 let all = document.querySelector(".all")
+let descending = document.querySelector(".descending")
+let ascending = document.querySelector(".ascending")
 
-let blanket = document.querySelector(".blanket")
+let to_bottom = document.querySelector(".to_bottom")
 let to_top = document.querySelector(".to_top")
 
 let count = document.querySelector(".count")
 
 let cart = []
+let is_in = document.querySelector(".is_in ")
+
+if (cart.length) {
+    is_in.style.scale = "1"
+} else {
+    is_in.style.scale = "0"
+}
 
 reload(arr.slice(0, 6), cont)
 
@@ -266,11 +287,11 @@ all.onclick = () => {
     }, 500);
 }
 
-blanket.onclick = () => {
+to_bottom.onclick = () => {
     window.scrollTo({
         top: body.scrollHeight
     })
-    blanket.style.opacity = "0"
+    to_bottom.style.opacity = "0"
 }
 to_top.onclick = () => {
     window.scrollTo({
@@ -278,25 +299,46 @@ to_top.onclick = () => {
     })
 }
 
-window.onscroll = () => {
-    if (window.scrollY >= 1007) {
-        blanket.style.opacity = "0"
-        blanket.style.bottom = "-10%"
-        to_top.style.bottom = "40px"
-        to_top.style.opacity = "1"
-    } else {
-        blanket.style.opacity = "1"
-        blanket.style.bottom = "0%"
-        to_top.style.bottom = "-82px"
-        to_top.style.opacity = "0"
-    }
-}
-
 function reload(arr, place) {
+
     place.innerHTML = ""
+
     count.innerHTML = cart.length
+
+    ascending.onclick = () => {
+        let sorted = [...arr].sort((a, b) => a.price - b.price)
+
+        place.style.opacity = "0"
+
+        setTimeout(() => {
+            place.style.opacity = "1"
+            reload(sorted, place)
+        }, 500);
+    }
+
+    descending.onclick = () => {
+
+        let sorted = [...arr].sort((a, b) => b.price - a.price)
+
+        place.style.opacity = "0"
+
+        setTimeout(() => {
+            place.style.opacity = "1"
+            reload(sorted, place)
+        }, 500);
+    }
+
+
+    if (cart.length) {
+        is_in.style.scale = "1"
+    } else {
+        is_in.style.scale = "0"
+    }
+
     for (let product of arr) {
-        product.price = Math.floor(Math.random() * 10000)
+        if (!product.price) {
+            product.price = Math.floor(Math.random() * 10000).toLocaleString("uk-UK")
+        }
         let item = document.createElement("div")
         let img = document.createElement("img")
         let title = document.createElement("h3")
@@ -321,9 +363,9 @@ function reload(arr, place) {
 
 
         img.src = `${product.image}`
-        title.innerHTML = product.title.slice(0, 20)
-        descr.innerHTML = product.description.slice(0, 20)
-        categ.innerHTML = "Type: " + product.category.slice(0, 20)
+        title.innerHTML = product.title.slice(0, 15)
+        descr.innerHTML = product.description.slice(0, 15)
+        categ.innerHTML = "Type: " + product.category.slice(0, 15)
         rate.innerHTML = "Rate: " + product.rating.rate
         voted.innerHTML = "Voted: " + product.rating.count
         price.innerHTML = "Price: " + product.price + "$"
@@ -336,7 +378,7 @@ function reload(arr, place) {
             add.classList.remove("add_active")
         }
 
-        item.append(img, title, descr, categ, rating, price, add)
+        item.append(img, title, categ, rating, price, add)
         rating.append(rate, voted)
         place.append(item)
 
@@ -351,13 +393,31 @@ function reload(arr, place) {
                 add.classList.add("add_active")
             }
             count.innerHTML = cart.length
+            if (cart.length) {
+                is_in.style.scale = "1"
+            } else {
+                is_in.style.scale = "0"
+            }
             console.log(cart);
         }
     }
 
     if (arr.length === 6) {
-        blanket.style.opacity = '0'
+        to_bottom.style.opacity = '0'
     } else {
-        blanket.style.opacity = '1'
+        to_bottom.style.opacity = '1'
+        window.onscroll = () => {
+            if (window.scrollY >= 1007) {
+                to_bottom.style.opacity = "0"
+                to_bottom.style.bottom = "-10%"
+                to_top.style.bottom = "40px"
+                to_top.style.opacity = "1"
+            } else {
+                to_bottom.style.opacity = "1"
+                to_bottom.style.bottom = "0%"
+                to_top.style.bottom = "-82px"
+                to_top.style.opacity = "0"
+            }
+        }
     }
 }
