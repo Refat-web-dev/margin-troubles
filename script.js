@@ -233,10 +233,12 @@ let blanket = document.querySelector(".blanket")
 closeBtns.forEach(btn => {
     btn.onclick = () => {
         blanket.style.opacity = "0"
+        blanket.style.opacity = "0"
         setTimeout(() => {
             blanket.style.display = "none"
         }, 500);
-        aside.style.right = "-400px"
+        aside.style.opacity = "0"
+        aside.style.right = "-600px"
     }
 })
 
@@ -246,6 +248,7 @@ openBtn.onclick = () => {
         blanket.style.opacity = "1"
     }, 0);
     aside.style.right = "0px"
+    aside.style.opacity = "1"
 }
 
 let five = document.querySelector(".five")
@@ -419,5 +422,67 @@ function reload(arr, place) {
                 to_top.style.opacity = "0"
             }
         }
+    }
+}
+reloadCart(arr, aside_cont)
+function reloadCart(arr, place) {
+
+    place.innerHTML = " "
+
+    for (let selected of arr) {
+
+        let aside_item = document.createElement("div")
+        let left = document.createElement("div")
+        let img = document.createElement("img")
+        let center = document.createElement("div")
+        let name = document.createElement("h3")
+        let under_name = document.createElement("div")
+        let under_name_left = document.createElement("div")
+        let description = document.createElement("p")
+        let category = document.createElement("p")
+        let under_name_right = document.createElement("div")
+        let minus = document.createElement("button")
+        let amount = document.createElement("input")
+        let plus = document.createElement("button")
+        let right = document.createElement("div")
+        let trash = document.createElement("button")
+        let trash_img = document.createElement("img")
+        let item_sum = document.createElement("span")
+
+        aside_item.classList.add("aside_item")
+        left.classList.add("left")
+        center.classList.add("center")
+        name.classList.add("name")
+        under_name.classList.add("under_name")
+        under_name_left.classList.add("under_name_left")
+        description.classList.add("description")
+        category.classList.add("category")
+        under_name_right.classList.add("under_name_right")
+        amount.classList.add("amount")
+        right.classList.add("right")
+        trash.classList.add("trash")
+        item_sum.classList.add("item_sum")
+
+        img.src = `${selected.image}`
+        name.innerHTML = `${selected.title.slice(0, 15)}`
+        description.innerHTML = `${selected.description.slice(0, 15)}`
+        category.innerHTML = `${selected.category.slice(0, 15)}`
+        minus.innerHTML = `-`
+        amount.type = "text"
+        amount.value = "1"
+        plus.innerHTML = `-`
+        trash.innerHTML = "Delete"
+        trash_img.src = `./img/trash.svg`
+        item_sum = selected.price.toLocaleString("uk-UK") + "$"
+
+        aside_item.append(left, center, right)
+        left.append(img)
+        center.append(name, under_name)
+        under_name.append(under_name_left, under_name_right)
+        under_name_left.append(description, category)
+        under_name_right.append(minus, amount, plus)
+        right.append(trash, item_sum)
+        trash.prepend(trash_img)
+        place.append(aside_item)
     }
 }
