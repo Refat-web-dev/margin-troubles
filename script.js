@@ -237,7 +237,6 @@ closeBtns.forEach(btn => {
         setTimeout(() => {
             blanket.style.display = "none"
         }, 500);
-        aside.style.opacity = "0"
         aside.style.right = "-600px"
     }
 })
@@ -248,7 +247,6 @@ openBtn.onclick = () => {
         blanket.style.opacity = "1"
     }, 0);
     aside.style.right = "0px"
-    aside.style.opacity = "1"
 }
 
 let five = document.querySelector(".five")
@@ -339,9 +337,7 @@ function reload(arr, place) {
     }
 
     for (let product of arr) {
-        if (!product.price) {
-            product.price = Math.floor(Math.random() * 10000).toLocaleString("uk-UK")
-        }
+
         let item = document.createElement("div")
         let img = document.createElement("img")
         let title = document.createElement("h3")
@@ -386,12 +382,12 @@ function reload(arr, place) {
         place.append(item)
 
         add.onclick = () => {
-            if (cart.includes(product.id)) {
-                cart = cart.filter(id => id !== product.id)
+            if (cart.includes(product)) {
+                cart = cart.filter(id => id.id !== product.id)
                 add.innerHTML = "ADD"
                 add.classList.remove("add_active")
             } else {
-                cart.push(product.id)
+                cart.push(product)
                 add.innerHTML = "ADDED"
                 add.classList.add("add_active")
             }
@@ -402,6 +398,7 @@ function reload(arr, place) {
                 is_in.style.scale = "0"
             }
             console.log(cart);
+            reloadCart(cart, aside_cont)
         }
     }
 
@@ -424,7 +421,7 @@ function reload(arr, place) {
         }
     }
 }
-reloadCart(arr, aside_cont)
+
 function reloadCart(arr, place) {
 
     place.innerHTML = " "
@@ -470,7 +467,7 @@ function reloadCart(arr, place) {
         minus.innerHTML = `-`
         amount.type = "text"
         amount.value = "1"
-        plus.innerHTML = `-`
+        plus.innerHTML = `+`
         trash.innerHTML = "Delete"
         trash_img.src = `./img/trash.svg`
         item_sum = selected.price.toLocaleString("uk-UK") + "$"
